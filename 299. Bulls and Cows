@@ -1,0 +1,31 @@
+class Solution {
+    public String getHint(String a, String b) {
+        int i=0;
+        int bulls=0;
+        int cows=0;
+        HashMap<Character,Integer>map=new HashMap<>();
+        HashSet<Integer>set=new HashSet<>();
+        while(i<a.length())
+        {
+            if(a.charAt(i)==b.charAt(i)) {
+                bulls++;
+            set.add(i);
+            }
+            else map.put(a.charAt(i),map.getOrDefault(a.charAt(i),0)+1);
+            i++;
+        }
+        for( i=0;i<b.length();i++){
+            if(set.contains(i)) {
+
+                continue;
+            }
+            if(map.containsKey(b.charAt(i)))
+            {
+                cows++;
+                map.put(b.charAt(i),map.get(b.charAt(i))-1);
+                if(map.get(b.charAt(i))==0) map.remove(b.charAt(i));
+            }
+        }
+        return bulls+"A"+cows+"B";
+    }
+}
